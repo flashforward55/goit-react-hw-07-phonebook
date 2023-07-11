@@ -25,10 +25,10 @@ function App() {
       {contacts.length !== 0 ? (
         <>
           <Filter />
-          {loading === true && <Loading />}
+          {loading && <Loading />}
           <ContactList />
         </>
-      ) : loading === true ? (
+      ) : loading ? (
         <Loading />
       ) : (
         <p>
