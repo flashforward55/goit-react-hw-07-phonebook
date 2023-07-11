@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { fetchContacts, addNewContact, deleteContact } from "./operations";
+import { fetchContacts, addContact, deleteContact } from "./operations";
 
 const handleFetchContacts = (state, action) => {
   state.items = action.payload;
@@ -14,7 +14,7 @@ const handleDeleteContact = (state, action) => {
   state.items.splice(idx, 1);
 };
 
-const actions = [fetchContacts, addNewContact, deleteContact];
+const actions = [fetchContacts, addContact, deleteContact];
 
 const phonebookSlice = createSlice({
   name: "contacts",
@@ -33,7 +33,7 @@ const phonebookSlice = createSlice({
   extraReducers: builder =>
     builder
       .addCase(fetchContacts.fulfilled, handleFetchContacts)
-      .addCase(addNewContact.fulfilled, handleAddNewContact)
+      .addCase(addContact.fulfilled, handleAddNewContact)
       .addCase(deleteContact.fulfilled, handleDeleteContact)
       .addMatcher(
         isAnyOf(...actions.map(action => action.fulfilled)),
