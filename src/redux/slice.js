@@ -17,7 +17,7 @@ const handleDeleteContact = (state, action) => {
 const actions = [fetchContacts, addContact, deleteContact];
 
 const phonebookSlice = createSlice({
-  name: "contacts",
+  name: "phonebook",
   initialState: {
     items: [],
     isLoading: false,

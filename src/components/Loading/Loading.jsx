@@ -32,10 +32,10 @@ Loading.propTypes = {
 };
 
 Loading.defaultProps = {
-  color: '#00BFFF',
-  secondaryColor: '#00BFFF',
-  height: '80',
-  width: '80',
+  color: '#fff',
+  secondaryColor: '#555',
+  height: '40',
+  width: '40',
   strokeWidth: '4',
   strokeWidthSecondary: '4',
 };

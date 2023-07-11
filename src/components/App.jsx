@@ -2,11 +2,11 @@ import { AppContainer, Phonebook, Title } from './App.styled';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
+import Loading from './Loading';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectIsLoading } from 'redux/selector';
 import { fetchContacts } from 'redux/operations';
-import Loading from 'components/Loading';
 
 function App() {
   const dispatch = useDispatch();
