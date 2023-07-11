@@ -19,7 +19,7 @@ const ContactForm = () => {
     );
     if (checkContact === true) {
       reset();
-      // return toastWarn(name);
+      return alert(`Number: ${name} is already in phonebook`);
     }
     const newContact = {
       name,
