@@ -26,8 +26,8 @@ function App() {
       {contacts.length ? (
         <>
           <Filter />
-          {loading && !error && <Loading />}
           <ContactList />
+          {loading && !error && <Loading />}
         </>
       ) : loading ? (
         <Loading />
