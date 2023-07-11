@@ -31,10 +31,7 @@ function App() {
       ) : loading ? (
         <Loading />
       ) : (
-        <p>
-          Looks like you don`t have any contacts yet or just clear them all.
-          Please add new contact🤔
-        </p>
+        <p>Please add new contact</p>
       )}
     </AppContainer>
   );

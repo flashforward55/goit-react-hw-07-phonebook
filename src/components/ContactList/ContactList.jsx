@@ -19,17 +19,6 @@ const ContactList = () => {
   );
 };
 
-/* ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      phone: PropTypes.string,
-    })
-  ),
-  filter: PropTypes.string,
-}; */
-
 ContactList.propTypes = {
   filteredContacts: PropTypes.arrayOf(
     PropTypes.shape({

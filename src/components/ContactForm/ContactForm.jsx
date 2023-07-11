@@ -17,7 +17,7 @@ const ContactForm = () => {
     const checkContact = contacts.some(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
-    if (checkContact === true) {
+    if (checkContact) {
       reset();
       return alert(`Number: ${name} is already in phonebook`);
     }
