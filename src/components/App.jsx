@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectIsLoading } from 'redux/selector';
 import { fetchContacts } from 'redux/operations';
-import { Loading } from 'components/Loading';
+import Loading from 'components/Loading';
 
 function App() {
   const dispatch = useDispatch();
