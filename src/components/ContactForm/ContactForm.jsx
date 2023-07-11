@@ -1,57 +1,44 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactSlice';
+import { selectContacts } from 'redux/selector';
+import { addContact } from 'redux/operations';
 import { Form, Input, Button } from './ContactForm.styled';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setNumber] = useState('');
+
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.contacts);
 
-  const handleChange = e => {
-    const prop = e.target.name;
-    switch (prop) {
-      case 'name':
-        setName(e.target.value);
-        break;
-      case 'number':
-        setNumber(e.target.value);
-        break;
-      default:
-        throw new Error('Error');
+  const onSubmitForm = event => {
+    event.preventDefault();
+    const checkContact = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    if (checkContact === true) {
+      reset();
+      // return toastWarn(name);
     }
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    const data = {
-      id: Date.now().toString(),
-      name: name,
-      number: number,
+    const newContact = {
+      name,
+      phone,
     };
-    if (
-      contacts.find(
-        contact => contact.name.toLowerCase() === data.name.toLowerCase()
-      )
-    ) {
-      setName('');
-      setNumber('');
-      return alert(`Number: ${data.name} is already in phonebook`);
-    }
-    dispatch(addContact(data));
+    dispatch(addContact(newContact));
+    reset();
+  };
+  const reset = () => {
     setName('');
     setNumber('');
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={onSubmitForm}>
       <Input
         type="text"
         value={name}
-        onChange={handleChange}
+        onChange={event => setName(event.target.value)}
         name="name"
         placeholder="Name"
         pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -60,8 +47,8 @@ const ContactForm = () => {
       />
       <Input
         type="tel"
-        value={number}
-        onChange={handleChange}
+        value={phone}
+        onChange={event => setNumber(event.target.value)}
         name="number"
         placeholder="Phone number"
         pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
