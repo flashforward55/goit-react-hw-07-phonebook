@@ -5,13 +5,14 @@ import Filter from './Filter';
 import Loading from './Loading';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts, selectIsLoading } from 'redux/selector';
+import { selectContacts, selectIsLoading, selectError } from 'redux/selector';
 import { fetchContacts } from 'redux/operations';
 
 function App() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const loading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -22,10 +23,10 @@ function App() {
       <Phonebook>Phonebook</Phonebook>
       <ContactForm />
       <Title>Contacts</Title>
-      {contacts.length !== 0 ? (
+      {contacts.length ? (
         <>
           <Filter />
-          {loading && <Loading />}
+          {loading && !error && <Loading />}
           <ContactList />
         </>
       ) : loading ? (
