@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFilter } from 'redux/selector';
 import { setFilter } from 'redux/slice';
@@ -20,10 +19,6 @@ const Filter = () => {
       />
     </Label>
   );
-};
-
-Filter.propTypes = {
-  filter: PropTypes.string,
 };
 
 export default Filter;
