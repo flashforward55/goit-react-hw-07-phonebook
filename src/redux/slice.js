@@ -10,10 +10,11 @@ const phonebookSlice = createSlice({
     filter: "",
   },
   reducers: {
-    setFilter(state, action) {
+    setFilter: (state, action) => {
       state.filter = action.payload;
     },
   },
+
 
   extraReducers: (builder) =>
     builder
