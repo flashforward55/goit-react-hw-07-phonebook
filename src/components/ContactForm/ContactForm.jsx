@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts } from 'redux/selector';
-import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/axiosApi';
 import { Form, Input, Button } from './ContactForm.styled';
 
 const ContactForm = () => {
