@@ -27,10 +27,12 @@ function App() {
         <>
           <Filter />
           <ContactList />
-          {loading && !error && <Loading />}
+          {loading && <Loading />}
         </>
       ) : loading ? (
         <Loading />
+      ) : error ? (
+        <p>Error: {error.message}</p>
       ) : (
         <p>Please add new contact</p>
       )}

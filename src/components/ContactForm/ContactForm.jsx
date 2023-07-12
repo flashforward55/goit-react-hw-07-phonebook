@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts } from 'redux/selector';
 import { addContact } from 'redux/operations';
@@ -7,20 +6,23 @@ import { Form, Input, Button } from './ContactForm.styled';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const onSubmitForm = event => {
     event.preventDefault();
-    const checkContact = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    if (checkContact) {
+    if (checkIfContactExists()) {
       reset();
       return alert(`Number: ${name} is already in phonebook`);
     }
+    addNewContact();
+  };
+  const checkIfContactExists = () =>
+    contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
+
+  const addNewContact = () => {
     const newContact = {
       name,
       phone,
@@ -30,7 +32,7 @@ const ContactForm = () => {
   };
   const reset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -48,8 +50,8 @@ const ContactForm = () => {
       <Input
         type="tel"
         value={phone}
-        onChange={event => setNumber(event.target.value)}
-        name="number"
+        onChange={event => setPhone(event.target.value)}
+        name="phone"
         placeholder="Phone number"
         pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -58,10 +60,6 @@ const ContactForm = () => {
       <Button type="submit">Add Contact</Button>
     </Form>
   );
-};
-
-ContactForm.propTypes = {
-  addContact: PropTypes.func,
 };
 
 export default ContactForm;

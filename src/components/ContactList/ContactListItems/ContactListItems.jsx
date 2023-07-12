@@ -16,7 +16,11 @@ const ContactListItems = ({ id, name, phone }) => {
       <ContactName>{name}</ContactName>
       <ContactNumber>{phone}</ContactNumber>
 
-      <DeleteButton type="submit" onClick={() => dispatch(deleteContact(id))}>
+      <DeleteButton
+        type="submit"
+        aria-label="Delete contact"
+        onClick={() => dispatch(deleteContact(id))}
+      >
         Delete
       </DeleteButton>
     </ContactListItem>

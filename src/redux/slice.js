@@ -1,28 +1,13 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { fetchContacts, addContact, deleteContact } from "./operations";
 
-const handleFetchContacts = (state, action) => {
-  state.items = action.payload;
-};
-
-const handleAddNewContact = (state, action) => {
-  state.items.push(action.payload);
-};
-
-const handleDeleteContact = (state, action) => {
-  const idx = state.items.findIndex(item => item.id === action.payload.id);
-  state.items.splice(idx, 1);
-};
-
-const actions = [fetchContacts, addContact, deleteContact];
-
 const phonebookSlice = createSlice({
   name: "phonebook",
   initialState: {
     items: [],
     isLoading: false,
     error: null,
-    filter: '',
+    filter: "",
   },
   reducers: {
     setFilter(state, action) {
@@ -30,29 +15,27 @@ const phonebookSlice = createSlice({
     },
   },
 
-  extraReducers: builder =>
+  extraReducers: (builder) =>
     builder
-      .addCase(fetchContacts.fulfilled, handleFetchContacts)
-      .addCase(addContact.fulfilled, handleAddNewContact)
-      .addCase(deleteContact.fulfilled, handleDeleteContact)
-      .addMatcher(
-        isAnyOf(...actions.map(action => action.fulfilled)),
-        state => {
-          state.isLoading = false;
-          state.error = null;
-        }
-      )
-      .addMatcher(isAnyOf(...actions.map(action => action.pending)),
-        state => {
-          state.isLoading = true;
-        })
-      .addMatcher(
-        isAnyOf(...actions.map(action => action.rejected)),
-        (state, action) => {
-          state.isLoading = false;
-          state.error = action.payload;
-        }
-      ),
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+      })
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items.push(action.payload);
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = state.items.filter((item) => item.id !== action.payload.id);
+      })
+      .addMatcher(isAnyOf(fetchContacts.pending, addContact.pending, deleteContact.pending), (state) => {
+        state.isLoading = true;
+      })
+      .addMatcher(isAnyOf(fetchContacts.rejected, addContact.rejected, deleteContact.rejected), (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      }),
 });
 
 export const { setFilter } = phonebookSlice.actions;
