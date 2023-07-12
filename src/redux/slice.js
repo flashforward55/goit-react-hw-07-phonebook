@@ -15,7 +15,6 @@ const phonebookSlice = createSlice({
     },
   },
 
-
   extraReducers: (builder) =>
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
