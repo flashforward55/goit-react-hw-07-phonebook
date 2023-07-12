@@ -1,5 +1,5 @@
-import { Oval } from 'react-loader-spinner';
 import PropTypes from 'prop-types';
+import { Oval } from 'react-loader-spinner';
 import { LoaderWrapper } from './Loading.styled';
 
 const Loading = ({
